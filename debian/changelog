@@ -1,0 +1,5 @@
+python-gitdb (0.5.1-1) zelazny; urgency=low
+
+  * Initial release
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 06 Aug 2010 03:11:13 +0700

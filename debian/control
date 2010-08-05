@@ -1,0 +1,16 @@
+Source: python-gitdb
+Section: host/debian
+Priority: optional
+Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
+Build-Depends: debhelper (>= 7), python (>= 2.3.5-11), python-all-dev
+Build-Depends-Indep: python-support (>= 0.8)
+Standards-Version: 3.8.3
+
+Package: python-gitdb
+Architecture: any
+Depends: ${python:Depends}
+Description: IO of git-style object databases
+ GitDB allows you to access bare git repositories for reading and writing. It
+ aims at allowing full access to loose objects as well as packs with performance
+ and scalability in mind. It operates exclusively on streams, allowing to
+ operate on large objects with a small memory footprint.

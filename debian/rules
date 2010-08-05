@@ -1,0 +1,48 @@
+#!/usr/bin/make -f
+
+PYVERS=$(shell pyversions -vr)
+
+clean:
+	dh_testdir
+	dh_testroot
+	python setup.py clean --all
+	dh_clean
+
+build: build-stamp
+build-stamp: $(PYVERS:%=build-python%-stamp)
+	touch $@
+
+build-python%-stamp:
+	dh_testdir
+	python$* setup.py build
+	touch $@
+
+install: build $(PYVERS:%=install-python%)
+install-pre-stamp:
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+	touch $@
+
+install-python%: install-pre-stamp
+	python$* setup.py install --root $(CURDIR)/debian/python-gitdb
+
+binary-arch: build install
+	dh_testdir -s
+	dh_testroot -s
+	dh_installdocs -s
+	dh_installexamples -s
+	dh_installchangelogs -s
+	dh_pysupport -s
+	dh_compress -s
+	dh_fixperms -s
+	dh_installdeb -s
+	dh_gencontrol -s
+	dh_md5sums -s
+	dh_builddeb -s
+
+binary-indep:
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install install-pre configure
